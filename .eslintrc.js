@@ -5,10 +5,10 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+    'plugin:prettier/recommended', // Asegura que Prettier y ESLint no entren en conflicto
   ],
   root: true,
   env: {
@@ -17,15 +17,9 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    /* '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off', */
-
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'linebreak-style': ['error', 'unix'], // Add this line
+    // Aquí puedes personalizar o desactivar reglas según tus necesidades.
+    'prettier/prettier': ['error', { endOfLine: 'lf', singleQuote: true, trailingComma: 'all' }],
+    'linebreak-style': ['error', 'unix'],
+    // Otras reglas específicas pueden ser agregadas o modificadas
   },
 };

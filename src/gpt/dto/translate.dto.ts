@@ -2,9 +2,9 @@ import { IsOptional, IsString } from 'class-validator';
 
 export class TranslateDto {
   @IsString()
-  readonly prompt: string;
+  prompt: string;
 
   @IsString()
   @IsOptional()
-  readonly lang: string; // Obligatoria en el caso de que se quiera hacer una búsqueda por idioma
+  lang: string; // Obligatoria en el caso de que se quiera hacer una búsqueda por idioma
 }

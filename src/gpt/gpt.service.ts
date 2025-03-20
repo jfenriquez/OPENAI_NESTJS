@@ -13,7 +13,9 @@ import { textToAudioUseCase } from './use-cases/textToAudio.use-case';
 import * as path from 'path';
 import * as fs from 'fs';
 import { audioToTextUseCase } from './use-cases/AudioToText.use-case';
-import { AudioToTextDto } from './dto/audio-to-text.dto';
+import { ImageGenerationDto } from './dto/image-generation.dto';
+import { imageGenerationUseCase } from './use-cases/imageGeneration.use-case';
+
 @Injectable()
 export class GptService {
   private openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -73,7 +75,24 @@ export class GptService {
 
   async AudioTotext(audioFile: Express.Multer.File, AudioToTextDto) {
     const { prompt } = AudioToTextDto;
-
     return await audioToTextUseCase(this.openai, { audioFile, prompt });
+  }
+
+  /////IMAGEN
+  async imageGeneration(imageGenerationDto: ImageGenerationDto) {
+    return imageGenerationUseCase(this.openai, imageGenerationDto);
+  }
+
+  async ImagenFile(fileID: string) {
+    const folderPath = path.resolve(
+      __dirname,
+      '../../generated/images/',
+      `${fileID}.png`,
+    );
+    const wasFile = fs.existsSync(folderPath);
+    if (!wasFile) {
+      throw new NotFoundException(`file id ${fileID} not found`);
+    }
+    return await folderPath;
   }
 }
