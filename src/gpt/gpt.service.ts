@@ -15,6 +15,8 @@ import * as fs from 'fs';
 import { audioToTextUseCase } from './use-cases/AudioToText.use-case';
 import { ImageGenerationDto } from './dto/image-generation.dto';
 import { imageGenerationUseCase } from './use-cases/imageGeneration.use-case';
+import { ImagenVariationDto } from './dto/image-variation.dto';
+import { imageVariationUseCase } from './use-cases/imageVariationUseCase';
 
 @Injectable()
 export class GptService {
@@ -94,5 +96,9 @@ export class GptService {
       throw new NotFoundException(`file id ${fileID} not found`);
     }
     return await folderPath;
+  }
+
+  async imagenVariation({ baseImage }: ImagenVariationDto) {
+    return await imageVariationUseCase(this.openai, { baseImage });
   }
 }
